@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>insanegram - Next-Gen Instagram Web Client</title>
+    <style>
+        /* ========================================
+           GLOBAL STYLES & RESET
+        ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+            #667eea 0%,
+            #764ba2 15%,
+            #f093fb 30%,
+            #4facfe 45%,
+            #00f2fe 60%,
+            #43e97b 75%,
+            #fa709a 90%,
+            #fee140 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ========================================
+           HERO SECTION
+        ======================================== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Glassmorphism container */
+        .hero-content {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glowing effect behind container */
+        .hero-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle,
+            rgba(102, 126, 234, 0.3) 0%,
+            rgba(118, 75, 162, 0.2) 25%,
+            transparent 50%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Brand name with gradient text */
+        .brand-name {
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -3px;
+            animation: gradientText 5s ease infinite;
+            text-shadow: 0 0 80px rgba(102, 126, 234, 0.5);
+        }
+
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Tagline */
+        .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Description text */
+        .description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        /* Glowing Login Button */
+        .login-button {
+            display: inline-block;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6),
+            0 0 60px rgba(118, 75, 162, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .login-button:hover::before {
+            left: 100%;
+        }
+
+        .login-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.8),
+            0 0 80px rgba(118, 75, 162, 0.6);
+        }
+
+        .login-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* ========================================
+           FEATURES SECTION
+        ======================================== */
+        .features-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #ffffff, #a8a8a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        /* Feature card with glassmorphism */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+            rgba(102, 126, 234, 0.1),
+            rgba(118, 75, 162, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Feature icon badge */
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .feature-card:nth-child(1) .feature-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .feature-card:nth-child(4) .feature-icon {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           PREVIEW SECTION
+        ======================================== */
+        .preview-section {
+            padding: 60px 20px 100px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Instagram-style preview mockup */
+        .preview-mockup {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+            rgba(102, 126, 234, 0.1),
+            rgba(240, 147, 251, 0.1));
+            pointer-events: none;
+        }
+
+        /* Placeholder image container */
+        .preview-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg,
+            rgba(102, 126, 234, 0.3),
+            rgba(118, 75, 162, 0.3),
+            rgba(240, 147, 251, 0.3));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-image::before {
+            content: '📱';
+            font-size: 8rem;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .preview-text {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        .footer {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        .footer-text a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-text a:hover {
+            color: #764ba2;
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+        ======================================== */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 40px 25px;
+            }
+
+            .login-button {
+                padding: 16px 40px;
+                font-size: 1.1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .preview-image {
+                height: 350px;
+            }
+
+            .preview-image::before {
+                font-size: 5rem;
+            }
+
+            .preview-text {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-name {
+                letter-spacing: -2px;
+            }
+
+            .feature-card {
+                padding: 30px 20px;
+            }
+
+            .preview-mockup {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- ========================================
+     HERO SECTION
+======================================== -->
+<section class="hero-section">
+    <div class="hero-content">
+        <!-- Brand Name -->
+        <h1 class="brand-name">Insanegram</h1>
+
+        <!-- Tagline -->
+        <p class="tagline">Fast. Stylish. Secure. The next-gen Instagram web client</p>
+
+        <!-- Description -->
+        <p class="description">
+            Experience Instagram like never before with our cutting-edge web client.
+            Blazing-fast performance, stunning animations, and enhanced privacy features
+            that put you in control of your social media experience.
+        </p>
+
+        <!-- Glowing Login Button -->
+        <a href="login.html" class="login-button">
+            Login with Instagram
+        </a>
+    </div>
+</section>
+
+<!-- ========================================
+     FEATURES SECTION
+======================================== -->
+<section class="features-section">
+    <h2 class="section-title">Why Choose Insanegram?</h2>
+
+    <div class="features-grid">
+        <!-- Feature 1: Ultra-Smooth UI -->
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Ultra-Smooth UI</h3>
+            <p class="feature-description">
+                Experience lightning-fast navigation with our optimized interface.
+                Every interaction is buttery smooth and responsive.
+            </p>
+        </div>
+
+        <!-- Feature 2: Animated Themes -->
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3 class="feature-title">Animated Themes</h3>
+            <p class="feature-description">
+                Customize your experience with stunning animated themes and
+                vibrant color schemes that match your style.
+            </p>
+        </div>
+
+        <!-- Feature 3: Enhanced Privacy -->
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">Enhanced Privacy</h3>
+            <p class="feature-description">
+                Your data, your rules. Advanced privacy controls keep you
+                safe while browsing your favorite content.
+            </p>
+        </div>
+
+        <!-- Feature 4: Custom Tools -->
+        <div class="feature-card">
+            <div class="feature-icon">🛠️</div>
+            <h3 class="feature-title">Custom Tools</h3>
+            <p class="feature-description">
+                Unlock powerful tools for content management, analytics,
+                and productivity to level up your Instagram game.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     PREVIEW SECTION
+======================================== -->
+<section class="preview-section">
+    <h2 class="section-title">See It In Action</h2>
+
+    <div class="preview-mockup">
+        <div class="preview-image">
+            <span class="preview-text">Comming Soon</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     FOOTER
+======================================== -->
+<footer class="footer">
+    <p class="footer-text">
+        © 2025 Insanegram | <a href="#">Privacy</a>
+    </p>
+</footer>
+</body>
+</html>
