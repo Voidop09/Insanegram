@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>insanegram - Next-Gen Instagram Web Client</title>
+    <title>insanegram - Your Legal Gateway to Instagram Freedom</title>
     <style>
-        /* ========================================
-           GLOBAL STYLES & RESET
-        ======================================== */
         * {
             margin: 0;
             padding: 0;
@@ -15,7 +12,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: #0a0a0a;
             color: #ffffff;
             overflow-x: hidden;
@@ -30,15 +27,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg,
-            #667eea 0%,
-            #764ba2 15%,
-            #f093fb 30%,
-            #4facfe 45%,
-            #00f2fe 60%,
-            #43e97b 75%,
-            #fa709a 90%,
-            #fee140 100%);
+            background: linear-gradient(135deg, 
+                #667eea 0%, 
+                #764ba2 15%, 
+                #f093fb 30%, 
+                #4facfe 45%,
+                #00f2fe 60%,
+                #43e97b 75%,
+                #fa709a 90%,
+                #fee140 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             opacity: 0.15;
@@ -49,6 +46,73 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* ========================================
+           VOTING EVENT BANNER (TOP)
+        ======================================== */
+        .event-banner {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%);
+            padding: 15px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(255, 107, 107, 0.6);
+            }
+        }
+
+        .event-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .event-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .event-text {
+            font-size: 1rem;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .event-text strong {
+            font-weight: 800;
+            font-size: 1.1rem;
         }
 
         /* ========================================
@@ -87,10 +151,10 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle,
-            rgba(102, 126, 234, 0.3) 0%,
-            rgba(118, 75, 162, 0.2) 25%,
-            transparent 50%);
+            background: radial-gradient(circle, 
+                rgba(102, 126, 234, 0.3) 0%, 
+                rgba(118, 75, 162, 0.2) 25%,
+                transparent 50%);
             animation: rotate 20s linear infinite;
             z-index: -1;
         }
@@ -98,6 +162,65 @@
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        /* Special Event Notice (inside hero) */
+        .special-notice {
+            background: rgba(255, 107, 107, 0.15);
+            border: 2px solid rgba(255, 107, 107, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .special-notice-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .special-notice-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 2px 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .special-notice-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .candidate-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .candidate-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .candidate-title {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         /* Brand name with gradient text */
@@ -151,7 +274,7 @@
             cursor: pointer;
             text-decoration: none;
             box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6),
-            0 0 60px rgba(118, 75, 162, 0.4);
+                        0 0 60px rgba(118, 75, 162, 0.4);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -175,11 +298,19 @@
         .login-button:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 50px rgba(102, 126, 234, 0.8),
-            0 0 80px rgba(118, 75, 162, 0.6);
+                        0 0 80px rgba(118, 75, 162, 0.6);
         }
 
         .login-button:active {
             transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Vote CTA Message */
+        .vote-cta {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
         }
 
         /* ========================================
@@ -229,9 +360,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg,
-            rgba(102, 126, 234, 0.1),
-            rgba(118, 75, 162, 0.1));
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.1), 
+                rgba(118, 75, 162, 0.1));
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -318,9 +449,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg,
-            rgba(102, 126, 234, 0.1),
-            rgba(240, 147, 251, 0.1));
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.1), 
+                rgba(240, 147, 251, 0.1));
             pointer-events: none;
         }
 
@@ -328,10 +459,10 @@
         .preview-image {
             width: 100%;
             height: 500px;
-            background: linear-gradient(135deg,
-            rgba(102, 126, 234, 0.3),
-            rgba(118, 75, 162, 0.3),
-            rgba(240, 147, 251, 0.3));
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.3), 
+                rgba(118, 75, 162, 0.3),
+                rgba(240, 147, 251, 0.3));
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -345,11 +476,6 @@
             font-size: 8rem;
             opacity: 0.3;
             animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
         }
 
         .preview-text {
@@ -390,8 +516,36 @@
            RESPONSIVE DESIGN
         ======================================== */
         @media (max-width: 768px) {
+            .event-banner {
+                padding: 12px 15px;
+            }
+
+            .event-text {
+                font-size: 0.85rem;
+            }
+
+            .event-text strong {
+                font-size: 0.95rem;
+            }
+
             .hero-content {
                 padding: 40px 25px;
+            }
+
+            .special-notice {
+                padding: 20px;
+            }
+
+            .special-notice-title {
+                font-size: 1.4rem;
+            }
+
+            .special-notice-text {
+                font-size: 0.95rem;
+            }
+
+            .candidate-name {
+                font-size: 1.2rem;
             }
 
             .login-button {
@@ -429,104 +583,138 @@
             .preview-mockup {
                 padding: 25px;
             }
+
+            .special-notice-icon {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-<!-- ========================================
-     HERO SECTION
-======================================== -->
-<section class="hero-section">
-    <div class="hero-content">
-        <!-- Brand Name -->
-        <h1 class="brand-name">Insanegram</h1>
+    <!-- ========================================
+         VOTING EVENT BANNER (TOP)
+    ======================================== -->
+    <div class="event-banner">
+        <div class="event-badge">🔥 LIVE NOW</div>
+        <div class="event-text">
+            <strong>Discord Owner Voting Battle is LIVE!</strong> Login to cast your vote for the next Insanegram Discord Server Owner! 🗳️
+        </div>
+    </div>
 
-        <!-- Tagline -->
-        <p class="tagline">Fast. Stylish. Secure. The next-gen Instagram web client</p>
+    <!-- ========================================
+         HERO SECTION
+    ======================================== -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <!-- Special Voting Event Notice -->
+            <div class="special-notice">
+                <div class="special-notice-icon">👑</div>
+                <h3 class="special-notice-title">Special Voting Event!</h3>
+                <p class="special-notice-text">
+                    Help us choose the next leader of our Discord community! 
+                    Login now to participate in the historic voting battle for the 
+                    Insanegram Discord Server Owner position.
+                </p>
+                <div class="candidate-box">
+                    <div class="candidate-name">almighty_void</div>
+                    <div class="candidate-title">Candidate for Discord Server Owner</div>
+                </div>
+            </div>
 
-        <!-- Description -->
-        <p class="description">
-            Experience Instagram like never before with our cutting-edge web client.
-            Blazing-fast performance, stunning animations, and enhanced privacy features
-            that put you in control of your social media experience.
+            <!-- Brand Name -->
+            <h1 class="brand-name">insanegram</h1>
+            
+            <!-- Tagline -->
+            <p class="tagline">Fast. Stylish. Secure. The next-gen Instagram web client</p>
+            
+            <!-- Description -->
+            <p class="description">
+                Experience Instagram like never before with our cutting-edge web client. 
+                Blazing-fast performance, stunning animations, and enhanced privacy features 
+                that put you in control of your social media experience.
+            </p>
+            
+            <!-- Glowing Login Button -->
+            <a href="login.html" class="login-button">
+                Login to Vote & Explore
+            </a>
+
+            <!-- Vote CTA -->
+            <p class="vote-cta">
+                🗳️ Login now and make your voice heard in the voting battle!
+            </p>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FEATURES SECTION
+    ======================================== -->
+    <section class="features-section">
+        <h2 class="section-title">Why Choose insanegram?</h2>
+        
+        <div class="features-grid">
+            <!-- Feature 1: Ultra-Smooth UI -->
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Ultra-Smooth UI</h3>
+                <p class="feature-description">
+                    Experience lightning-fast navigation with our optimized interface. 
+                    Every interaction is buttery smooth and responsive.
+                </p>
+            </div>
+
+            <!-- Feature 2: Animated Themes -->
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Animated Themes</h3>
+                <p class="feature-description">
+                    Customize your experience with stunning animated themes and 
+                    vibrant color schemes that match your style.
+                </p>
+            </div>
+
+            <!-- Feature 3: Enhanced Privacy -->
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Enhanced Privacy</h3>
+                <p class="feature-description">
+                    Your data, your rules. Advanced privacy controls keep you 
+                    safe while browsing your favorite content.
+                </p>
+            </div>
+
+            <!-- Feature 4: Custom Tools -->
+            <div class="feature-card">
+                <div class="feature-icon">🛠️</div>
+                <h3 class="feature-title">Custom Tools</h3>
+                <p class="feature-description">
+                    Unlock powerful tools for content management, analytics, 
+                    and productivity to level up your Instagram game.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         PREVIEW SECTION
+    ======================================== -->
+    <section class="preview-section">
+        <h2 class="section-title">See It In Action</h2>
+        
+        <div class="preview-mockup">
+            <div class="preview-image">
+                <span class="preview-text">Instagram Preview</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+    ======================================== -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2025 insanegram | <a href="#">Privacy</a> | Join our Discord community and vote!
         </p>
-
-        <!-- Glowing Login Button -->
-        <a href="login.html" class="login-button">
-            Login with Instagram
-        </a>
-    </div>
-</section>
-
-<!-- ========================================
-     FEATURES SECTION
-======================================== -->
-<section class="features-section">
-    <h2 class="section-title">Why Choose Insanegram?</h2>
-
-    <div class="features-grid">
-        <!-- Feature 1: Ultra-Smooth UI -->
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
-            <h3 class="feature-title">Ultra-Smooth UI</h3>
-            <p class="feature-description">
-                Experience lightning-fast navigation with our optimized interface.
-                Every interaction is buttery smooth and responsive.
-            </p>
-        </div>
-
-        <!-- Feature 2: Animated Themes -->
-        <div class="feature-card">
-            <div class="feature-icon">🎨</div>
-            <h3 class="feature-title">Animated Themes</h3>
-            <p class="feature-description">
-                Customize your experience with stunning animated themes and
-                vibrant color schemes that match your style.
-            </p>
-        </div>
-
-        <!-- Feature 3: Enhanced Privacy -->
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <h3 class="feature-title">Enhanced Privacy</h3>
-            <p class="feature-description">
-                Your data, your rules. Advanced privacy controls keep you
-                safe while browsing your favorite content.
-            </p>
-        </div>
-
-        <!-- Feature 4: Custom Tools -->
-        <div class="feature-card">
-            <div class="feature-icon">🛠️</div>
-            <h3 class="feature-title">Custom Tools</h3>
-            <p class="feature-description">
-                Unlock powerful tools for content management, analytics,
-                and productivity to level up your Instagram game.
-            </p>
-        </div>
-    </div>
-</section>
-
-<!-- ========================================
-     PREVIEW SECTION
-======================================== -->
-<section class="preview-section">
-    <h2 class="section-title">See It In Action</h2>
-
-    <div class="preview-mockup">
-        <div class="preview-image">
-            <span class="preview-text">Comming Soon</span>
-        </div>
-    </div>
-</section>
-
-<!-- ========================================
-     FOOTER
-======================================== -->
-<footer class="footer">
-    <p class="footer-text">
-        © 2025 Insanegram | <a href="#">Privacy</a>
-    </p>
-</footer>
+    </footer>
 </body>
 </html>
