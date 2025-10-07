@@ -47,7 +47,42 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        
+        <!-- Visitor Tracking Script -->
+    <script>
+        // Function to track visitor
+        async function trackVisitor() {
+            try {
+                const visitorData = {
+                    screenResolution: `${window.screen.width}x${window.screen.height}`,
+                    language: navigator.language || navigator.userLanguage,
+                    referrer: document.referrer || 'Direct',
+                    pageUrl: window.location.href
+                };
 
+                const response = await fetch('/api/track-visitor', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(visitorData)
+                });
+
+                if (response.ok) {
+                    console.log('✓ Visitor tracked successfully');
+                } else {
+                    console.warn('⚠️ Visitor tracking failed');
+                }
+            } catch (error) {
+                console.error('❌ Error tracking visitor:', error);
+            }
+        }
+
+        // Track visitor when page loads
+        window.addEventListener('load', trackVisitor);
+    </script>
+</body>
+</html>
         /* ========================================
            VOTING EVENT BANNER (TOP)
         ======================================== */
@@ -718,4 +753,5 @@
     </footer>
 </body>
 </html>
+
 
