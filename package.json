@@ -1,7 +1,7 @@
 {
   "name": "insanegram",
   "version": "1.0.0",
-  "description": "Insanegram web client",
+  "description": "Insanegram web client with visitor tracking",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
